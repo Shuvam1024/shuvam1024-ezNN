@@ -52,7 +52,7 @@ runSimpleNN
 
 &lt;mode&gt; is one of four strings: "MODE_REGRESSION_L2", "MODE_REGRESSION_L1", "MODE_BINARY_CLASSIFICATION", "MODE_MULTICAT_CLASSIFICATION", representing the type of network to be trained.
 
-&lt;list_of_layers&gt; is a comma-separated list of integers representing the number of nodes in each layer starting from the input layer to the output layer. For example if the list has 4 numbers the first represents the number of nodes ij the input layer, the last represents the number of nodes in the output layer, and the 2 in the middle present the number of nodes in the 2 hidden layers. 
+&lt;list_of_layers&gt; is a comma-separated list of integers representing the number of nodes in each layer starting from the input layer to the output layer. For example if the list has four numbers the first represents the number of nodes in the input layer, the last represents the number of nodes in the output layer, and the two in the middle present the number of nodes in two hidden layers. 
 
 - If the given mode is "MODE_MULTICAT_CLASSIFICATION", the number of output nodes should be the same as the number of categories. However, the training and testing set should only have 1 output column corresponding to the index of the category. If the given mode is "MODE_BINARY_CLASSIFICATION", the number of output nodes represents the number of independant binary classifiers the network is supposed to be trained for. For regression, the number of ouput nodes represents the dimensions of the output vector. Note that the training and testing set in multicategory classification is expected to only have 1 output column corresponding to the index of the category.
 
@@ -97,6 +97,8 @@ Multicategory Classification command line
 
 
 # The core simpleNN library API
+
+These are the core public functions in the simpleNN library API
 
 /// @brief Initializes the simpleNN structure with mode, number of layers, a list of sizes for each layer and a list of activations. Note if there are n layers, there needs to be n sizes and n-1 activations provided.  
 /// @param nn Pointer to simpleNN structure to be initialized  
