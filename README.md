@@ -132,15 +132,21 @@ These are the core public functions in the simpleNN library API
 > - `max_epochs`: Number of epochs to run training on
 > - `reset`: Flag to indicate whether to reset and randomly initialize the parameters of the netowrk prior to training. Set to 1 for new training starting from random initialization. When set as 0, this function can be used to continue or fine-tune training on a given training set, starting from an already pre-trained network.
 
-/// @brief    
-/// @param nn Pointer to simpleNN structure   
-/// @param model_filename filename to save model to    
-- `void save_model_to_file(simpleNNType *nn, char * model_filename);`   
+   
+- `void save_model_to_file(simpleNNType *nn, char * model_filename);`
+>Saves trained model architecture and parameters to a file
+>Parameters:
+> - `nn`: Pointer to simpleNN structure to be used to export model from
+> - `model_filename`: Filename for model file to save   
 
 /// @brief     
 /// @param nn Pointer to simpleNN structure   
 /// @param model_filename filename to load model from   
-- `void load_model_from_file(simpleNNType *nn, char * model_filename);`   
+- `void load_model_from_file(simpleNNType *nn, char * model_filename);`
+>Loads pre-trained model architecture and parameters from a file
+>Parameters:
+> - `nn`: Pointer to simpleNN structure to be used to import model into
+> - `model_filename`: Filename for model file to load
 
 
 
