@@ -64,6 +64,7 @@ Usage
   - If the given mode is "MODE_MULTICAT_CLASSIFICATION", the last activation function should be ACT_SIGMOID
 
 `learning_rate` is the learning rate for training
+
 `num_epochs` is the number epochs
 
 `training_csv`[,`testing_csv`] is a list of the training csv file and the testing csv file seperated by a comma. 
