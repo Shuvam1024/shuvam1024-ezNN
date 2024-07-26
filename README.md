@@ -24,7 +24,7 @@ To build the driver commandline tool `runSimpleNN`, you need the following addit
 - `readwrite_csv.h`
 - `main.c` (driver code for command line tool)
 - To compile runSimpleNN:
-  -   gcc -g -o  runSimpleNN simpleNN.c readwrite_csv.c main.c
+  -   gcc -o  runSimpleNN simpleNN.c readwrite_csv.c main.c -lm
   
 # Usage of `runSimpleNN` command-line tool
 
