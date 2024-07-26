@@ -18,10 +18,16 @@ Additionally, this repository includes a command line tool which allows users to
 simpleNN is contained in a few source files. To use simpleNN, simply add the following files to your project:
 - `simpleNN.c`
 - `simpleNN.h`
-- ‘main.c’ (if not modifying - can train directly from command line)
-  - To compile and run the simpleNN library from the command line:
-  -  gcc -g -o  runSimpleNN simpleNN.c readwrite_csv.c main.c
-  -  ./runSimpleNN MODE_REGRESSION_L2 6,5,3,1 ACT_RELU,ACT_RELU,ACT_IDENTITY 0.000001 20000 ./Realestate_train.csv,./Realestate_test.csv
+
+To build the driver commandline tool (runSimpleNN), you need the following additional files:
+- `readwrite_csv.c`
+- `readwrite_csv.h`
+- `main.c` (driver code for command line tool)
+  - To compile runSimpleNN:
+  -   gcc -g -o  runSimpleNN simpleNN.c readwrite_csv.c main.c
+  
+  
+  ./runSimpleNN MODE_REGRESSION_L2 6,5,3,1 ACT_RELU,ACT_RELU,ACT_IDENTITY 0.000001 20000 ./Realestate_train.csv,./Realestate_test.csv
 
 
 
