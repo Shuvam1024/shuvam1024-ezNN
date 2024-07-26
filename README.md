@@ -110,9 +110,9 @@ Multicategory Classification command line
 `void free_simpleNN(simpleNNType *nn);`   
 
 /// @brief Run inference on a list of inputs   
-/// @param nn Pointer to simpleNN structure   
-/// @param inputs list of input samples as a 2D array
-/// @param n number of input samples   
+/// @param nn Pointer to simpleNN structure      
+/// @param inputs list of input samples as a 2D array     
+/// @param n number of input samples       
 /// @param outputs list of outputs generated for each sample as a 2D array. Space must be pre-allocated for the outputs.   
 `void do_inference(simpleNNType *nn, float **inputs, int n, float **outputs);`    
 
