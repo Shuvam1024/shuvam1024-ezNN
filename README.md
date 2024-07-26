@@ -28,25 +28,26 @@ To build the driver commandline tool (runSimpleNN), you need the following addit
   
 # Usage of runSimpleNN command-line tool
 
-Usage
+`Usage`
+
 >runSimpleNN
->
-&lt;<mode>&gt;
->
-list_of_layers
->
-list_of_activations
->
-learning_rate
->
-num_epochs
->
-training_csv[,testing_csv]
->
-model_filename
->
-[map_of_columns_in_csv]
->
+
+>&lt;`<mode>`&gt;
+
+>list_of_layers
+
+>list_of_activations
+
+>learning_rate
+
+>num_epochs
+
+>training_csv[,testing_csv]
+
+>model_filename
+
+>[map_of_columns_in_csv]
+
 
 
 `mode` is one of four strings: "MODE_REGRESSION_L2", "MODE_REGRESSION_L1", "MODE_BINARY_CLASSIFICATION", "MODE_MULTICAT_CLASSIFICATION", representing the type of network to be trained.
