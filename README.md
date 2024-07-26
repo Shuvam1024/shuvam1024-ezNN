@@ -1,5 +1,5 @@
 # simpleNN
-simpleNN is a library that implements a multilayer perceptron model, allowing users to train models with multiple modes and loss functions. It provides functions for initializing the network, performing forward and backward passes, and evaluating the performance of the trained model. Additionally, users can directly send the network parameters through the command line to train and test a model.
+simpleNN is a library that implements a multilayer perceptron, allowing users to train models with multiple modes and loss functions. It provides functions for initializing the network, performing forward and backward passes, and evaluating the performance of the trained model. Additionally, users can directly send the network parameters through the command line to train and test a model.
 
 # features
 - C99 with no dependencies.
