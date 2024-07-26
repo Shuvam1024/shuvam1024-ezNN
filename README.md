@@ -92,7 +92,7 @@ Binary Classification command line
 
 Multicategory Classification command line
 
-> runSimpleNN MODE_MULTICAT_CLASSIFICATION 4,5,3,1 ACT_RELU,ACT_TANH,ACT_SOFTMAX 0.0005 10000 ./iris.csv mymodel.dat  (no test file)
+> runSimpleNN MODE_MULTICAT_CLASSIFICATION 4,5,3,1 ACT_RELU,ACT_TANH,ACT_SOFTMAX 0.0005 10000 ./iris.csv mymodel.dat  
 
 
 
