@@ -22,11 +22,11 @@ void init_simpleNN(simpleNNType *nn, modeType mode, int nlayers, int *sizes, act
         nn->weights[i] = (float **)malloc(sizes[i] * sizeof(float *));
         nn->weights_grad[i] = (float **)malloc(sizes[i] * sizeof(float *));
         for (int j = 0; j < sizes[i]; j++) {
-            nn->weights[i][j] = (float *)malloc(sizes[i+1] * sizeof(float *));
-            nn->weights_grad[i][j] = (float *)malloc(sizes[i+1] * sizeof(float *));
+            nn->weights[i][j] = (float *)malloc(sizes[i+1] * sizeof(float));
+            nn->weights_grad[i][j] = (float *)malloc(sizes[i+1] * sizeof(float));
         }
-        nn->biases[i] = (float *)malloc(sizes[i+1] * sizeof(float *));
-        nn->biases_grad[i] = (float *)malloc(sizes[i+1] * sizeof(float *));
+        nn->biases[i] = (float *)malloc(sizes[i+1] * sizeof(float));
+        nn->biases_grad[i] = (float *)malloc(sizes[i+1] * sizeof(float));
     }
 
     // Allocate memory for activations, errors, and gradients
@@ -442,6 +442,63 @@ float get_multicat_classification_accuracy(simpleNNType *nn, float **train_data,
     return (float)correct / train_samples * 100.0;
 }
 
+void save_model_to_file(simpleNNType *nn, char *model_filename) {
+    FILE *fp = fopen(model_filename, "wb");
+    unsigned char byte;
+    byte = nn->mode + (nn->nlayers << 3);
+    fwrite(&byte, 1, 1, fp);
+    for (int i = 0; i < nn->nlayers; ++i) {
+        byte = nn->layer_sizes[i] & 255;
+        fwrite(&byte, 1, 1, fp);
+        byte = (nn->layer_sizes[i] >> 8) & 255;
+        fwrite(&byte, 1, 1, fp);
+    }
+    for (int i = 0; i < nn->nlayers - 1; i += 2) {
+        byte = nn->activations[i];
+        if (i < nn->nlayers - 2)
+            byte += (nn->activations[i + 1] << 4);
+        fwrite(&byte, 1, 1, fp);
+    }
+    for (int i = 0; i < nn->nlayers - 1; i++) {
+        for (int j = 0; j < nn->layer_sizes[i]; j++) {
+            fwrite(nn->weights[i][j], nn->layer_sizes[i + 1], sizeof(float), fp);
+        }
+        fwrite(nn->biases[i], nn->layer_sizes[i + 1], sizeof(float), fp);
+    }
+    fclose(fp);
+}
+
+void load_model_from_file(simpleNNType *nn, char *model_filename) {
+    FILE *fp = fopen(model_filename, "rb");
+    unsigned char byte;
+    fread(&byte, 1, 1, fp);
+    modeType mode = (modeType)(byte & 7);
+    int nlayers = byte >> 3;
+    int sizes[MAX_LAYERS];
+    for (int i = 0; i < nlayers; ++i) {
+        fread(&byte, 1, 1, fp);
+        sizes[i] = byte;
+        fread(&byte, 1, 1, fp);
+        sizes[i] += (byte << 8);
+    }
+    actType activations[MAX_LAYERS];
+    for (int i = 0; i < nlayers - 1; i += 2) {
+        fread(&byte, 1, 1, fp);
+        activations[i] = byte & 15;
+        if (i < nlayers - 2) {
+            activations[i + 1] = byte >> 4;
+        }
+    }
+    init_simpleNN(nn, mode, nlayers, sizes, activations);
+    for (int i = 0; i < nn->nlayers - 1; i++) {
+        for (int j = 0; j < nn->layer_sizes[i]; j++) {
+            fread(nn->weights[i][j], nn->layer_sizes[i + 1], sizeof(float), fp);
+        }
+        fread(nn->biases[i], nn->layer_sizes[i + 1], sizeof(float), fp);
+    }
+    fclose(fp);
+}
+
 int get_num_features(simpleNNType *nn) {
     return nn->layer_sizes[0] + (nn->mode == MODE_MULTICAT_CLASSIFICATION ? 1 : nn->layer_sizes[nn->nlayers - 1]);
 }
@@ -462,12 +519,14 @@ static void random_shuffle(int n, int *indices) {
     }
 }
 
-void do_training(simpleNNType *nn, float **train_data, int train_samples, float learning_rate, int max_epochs) {
+void do_training(simpleNNType *nn, float **train_data, int train_samples, float learning_rate, int max_epochs, int reset) {
     float *out;
     if (nn->mode == MODE_MULTICAT_CLASSIFICATION)
         out = malloc(nn->layer_sizes[nn->nlayers-1] * sizeof(float));
-    // initialize random weights and biases
-    initialize_random_params(nn);
+    if (reset) {
+        // initialize random weights and biases
+        initialize_random_params(nn);
+    }
     int *indices = (int *)malloc(train_samples * sizeof(int));
     float **outputs = (float **)malloc(train_samples * sizeof(float *));
     for (int i = 0; i < train_samples; ++i) {

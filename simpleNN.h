@@ -5,7 +5,7 @@
 
 #define MAX_LAYERS 16
 typedef enum {
-    ACT_IDENTITY,
+    ACT_IDENTITY = 0,
     ACT_RELU,
     ACT_TANH,
     ACT_SIGMOID,
@@ -13,7 +13,7 @@ typedef enum {
 } actType;
 
 typedef enum {
-    MODE_REGRESSION_L2,
+    MODE_REGRESSION_L2 = 0,
     MODE_REGRESSION_L1,
     MODE_BINARY_CLASSIFICATION,
     MODE_MULTICAT_CLASSIFICATION
@@ -55,22 +55,92 @@ void free_simpleNN(simpleNNType *nn);
 void do_inference(simpleNNType *nn, float **inputs, int n, float **outputs);
 
 /// @brief 
-/// @param nn 
-/// @param inputs 
-/// @param n 
-/// @param outputs 
+/// @param nn Pointer to simpleNN structure
+/// @param inputs list of input samples as a 2D array
+/// @param n number of input samples
+/// @param outputs list of outputs generated for each sample as a 2D array. Space must be pre-allocated for the outputs.
 void do_classification_hard(simpleNNType *nn, float **inputs, int n, int **outputs);
 
+/// @brief 
+/// @param nn Pointer to simpleNN structure
+/// @param inputs list of input samples as a 2D array
+/// @param n number of input samples
+/// @param outputs list of outputs generated for each sample as a 2D array. Space must be pre-allocated for the outputs.
 void do_regression_hard(simpleNNType *nn, float **inputs, int n, float **outputs);
 
-void do_training(simpleNNType *nn, float **train_data, int train_sample, float learning_rate, int max_epochs);
+/// @brief Train a sample
+/// @param nn Pointer to simpleNN structure
+/// @param train_data training data
+/// @param train_sample number of traning samples
+/// @param learning_rate learning rate for training
+/// @param max_epochs number of epochs
+/// @param reset whether to reset to random model in the beginning
+void do_training(simpleNNType *nn, float **train_data, int train_sample, float learning_rate, int max_epochs, int reset);
 
+/// @brief returns number of total feautures in a sample
+/// @param nn Pointer to simpleNN structure
+/// @return integer number of features
 int get_num_features(simpleNNType *nn);
+
+/// @brief returns number of output feautures in a sample
+/// @param nn Pointer to simpleNN structure
+/// @return integer number of output features
 int get_num_out_features(simpleNNType *nn);
 
+/// @brief Calculates the loss for each sample
+/// @param nn Pointer to simpleNN structure
+/// @param train_data training data
+/// @param train_samples number of traning samples
+/// @param outputs the list of outputs
+/// @return a float number for loss
 float get_multicat_classification_loss(simpleNNType *nn, float **train_data, int train_samples, float **outputs);
+
+/// @brief Calculates the loss for each sample
+/// @param nn Pointer to simpleNN structure
+/// @param train_data training data
+/// @param train_samples number of traning samples
+/// @param outputs the list of outputs
+/// @return a float number for loss
 float get_binary_classification_loss(simpleNNType *nn, float **train_data, int train_samples, float **outputs);
+
+/// @brief Calculates the loss for each sample
+/// @param nn Pointer to simpleNN structure
+/// @param train_data training data
+/// @param train_samples number of traning samples
+/// @param outputs the list of outputs
+/// @return a float number for loss
 float get_regression_l1_loss(simpleNNType *nn, float **train_data, int train_samples, float **outputs);
+
+/// @brief Calculates the loss for each sample
+/// @param nn Pointer to simpleNN structure
+/// @param train_data training data
+/// @param train_samples number of traning samples
+/// @param outputs the list of outputs
+/// @return a float number for loss
 float get_regression_l2_loss(simpleNNType *nn, float **train_data, int train_samples, float **outputs);
+
+/// @brief Calculates the loss for each sample
+/// @param nn Pointer to simpleNN structure
+/// @param train_data training data
+/// @param train_samples number of traning samples
+/// @param outputs the list of outputs
+/// @return a float number for loss
 float get_binary_classification_accuracy(simpleNNType *nn, float **train_data, int train_samples, float **outputs);
+
+/// @brief Calculates the loss for each sample
+/// @param nn Pointer to simpleNN structure
+/// @param train_data training data
+/// @param train_samples number of traning samples
+/// @param outputs the list of outputs
+/// @return a float number for loss
 float get_multicat_classification_accuracy(simpleNNType *nn, float **train_data, int train_samples, float **outputs);
+
+/// @brief 
+/// @param nn Pointer to simpleNN structure
+/// @param model_filename filename to save model to
+void save_model_to_file(simpleNNType *nn, char * model_filename);
+
+/// @brief 
+/// @param nn Pointer to simpleNN structure
+/// @param model_filename filename to load model from
+void load_model_from_file(simpleNNType *nn, char * model_filename);
