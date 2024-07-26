@@ -84,15 +84,15 @@ runSimpleNN
 
 Regression L2 command line
 
-> runSimpleNN MODE_REGRESSION_L2 6,5,3,1 ACT_RELU,ACT_RELU,ACT_IDENTITY 0.000001 20000 train.csv,test.csv mymodel.dat
+> runSimpleNN  MODE_REGRESSION_L2  6,5,3,1  ACT_RELU,ACT_RELU,ACT_IDENTITY  0.000001  20000  train.csv,test.csv  mymodel.dat
 
 Binary Classification command line
 
-> runSimpleNN MODE_BINARY_CLASSIFICATION 4,5,3,1 ACT_RELU,ACT_TANH,ACT_SIGMOID 0.0005 10000 train.csv,test.csv mymodel.dat
+> runSimpleNN  MODE_BINARY_CLASSIFICATION  4,5,3,1  ACT_RELU,ACT_TANH,ACT_SIGMOID  0.0005  10000  train.csv,test.csv  mymodel.dat
 
 Multicategory Classification command line
 
-> runSimpleNN MODE_MULTICAT_CLASSIFICATION 4,5,3,1 ACT_RELU,ACT_TANH,ACT_SOFTMAX 0.0005 10000 ./iris.csv mymodel.dat  
+> runSimpleNN  MODE_MULTICAT_CLASSIFICATION  4,5,3,1  ACT_RELU,ACT_TANH,ACT_SOFTMAX  0.0005  10000  ./iris.csv  mymodel.dat  
 
 
 
