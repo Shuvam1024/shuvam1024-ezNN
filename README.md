@@ -3,13 +3,14 @@ simpleNN is a library that implements a multilayer perceptron (MLP), allowing us
 
 Additionally, this repository includes a command line tool which allows users to train and test a multilayer perceptron model through csv files using the sinpleNN library.
 
-# features
+# Features
 - C99 with no dependencies.
 - Supports multiple activation functions: identity, ReLU, sigmoid, tanh, and softmax.
 - Implements backpropagation for training.
 - Supports various training modes: L2 regression, L1 regression, binary classification, and multi-class classification.
 - Easily extendable.
 - Contains functions for reading from and writing to CSV files.
+- Contains functions for saving trained models to files and loading them back for further training or inference.
 - Examples included for training and testing models.
 
 # Building
