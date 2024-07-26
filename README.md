@@ -28,9 +28,9 @@ To build the driver commandline tool (runSimpleNN), you need the following addit
   
 # Usage of runSimpleNN command-line tool
 
-`Usage`
+Usage
 
-runSimpleNN  
+`runSimpleNN`  
 > &lt;mode&gt;  
 > &lt;list_of_layers&gt;  
 > &lt;list_of_activations&gt;  
