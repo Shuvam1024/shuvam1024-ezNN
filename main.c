@@ -39,7 +39,8 @@ void usage_and_exit(char *prog, char *message) {
     printf("    <list_of_activations>\n");
     printf("    <learning_rates>\n");
     printf("    <num_epochs>\n");
-    printf("    <training_csv>\n");
+    printf("    <training_csv>[,<testing_csv>]\n");
+    printf("    <model_filename>\n");
     printf("    [<map_of_columns_in_csv>]\n");
     exit(1);
 }
@@ -49,7 +50,7 @@ int main(int argc, char* argv[]) {
     simpleNNType myNN;
     int num_samples, cols;
 
-    if (argc < 7) {
+    if (argc < 8) {
         usage_and_exit(argv[0], "Wrong number of arguments");
     }
 
@@ -70,6 +71,10 @@ int main(int argc, char* argv[]) {
     actType layer_activations[MAX_LAYERS];
     if (str_to_act_array(argv[3], layer_activations) != n_acts)
         usage_and_exit(argv[0], "Number of activations should be num layers - 1");
+    if (mode == MODE_MULTICAT_CLASSIFICATION && layer_activations[nlayers-2] != ACT_SOFTMAX)
+        usage_and_exit(argv[0], "For multicategory classification lst layer must have ACT_SOFTMAX activation");
+    if (mode == MODE_BINARY_CLASSIFICATION && layer_activations[nlayers-2] != ACT_SIGMOID)
+        usage_and_exit(argv[0], "For multicategory classification lst layer must have ACT_SIGMOID activation");
 
     // Parse learning rate and epochs
     float learning_rate = atof(argv[4]);
@@ -82,8 +87,8 @@ int main(int argc, char* argv[]) {
     int csv_map_size = layer_sizes[0] + (mode == MODE_MULTICAT_CLASSIFICATION ? 1 : layer_sizes[nlayers - 1]);
     int *csv_map = malloc(csv_map_size * sizeof(int));
     for (int i = 0; i < csv_map_size; ++i) csv_map[i] = i;
-    if (argc == 8) {
-        if (str_to_int_array(argv[7], csv_map) != csv_map_size)
+    if (argc == 9) {
+        if (str_to_int_array(argv[8], csv_map) != csv_map_size)
             usage_and_exit(argv[0], "Wrong map size");
     }
 
@@ -109,15 +114,26 @@ int main(int argc, char* argv[]) {
     free(train_csv_data);
 
     printf("Starting Training with %s\n", training_csv);
-    do_training(&myNN, train_data, num_samples, learning_rate, epochs);
+    int reset = 1;
+    do_training(&myNN, train_data, num_samples, learning_rate, epochs, reset);
 
     for (int i = 0; i < num_samples; ++i) {
         free(train_data[i]);
     }
     free(train_data);
 
+    char * model_filename = argv[7];
+
+    save_model_to_file(&myNN, model_filename);
+
+    printf("Saved model to file: %s \n", model_filename);
+
+    free_simpleNN(&myNN);
+
     if (testing_csv) {
         printf("-------------------\n");
+        load_model_from_file(&myNN, model_filename);
+        printf("Loaded model from file: %s \n", model_filename);  
         int num_test_samples = read_csv_size(testing_csv, &cols);
         float **test_csv_data = (float **)malloc(num_test_samples * sizeof(float *));
         for (int i = 0; i < num_test_samples; ++i) {
@@ -157,10 +173,9 @@ int main(int argc, char* argv[]) {
             free(outputs[i]);
         }
         free(outputs);
+        free_simpleNN(&myNN);
     }
-
-
-    free_simpleNN(&myNN);
+    
     free(csv_map);
 
     return 0;
