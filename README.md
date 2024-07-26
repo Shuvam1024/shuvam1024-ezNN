@@ -32,21 +32,21 @@ To build the driver commandline tool (runSimpleNN), you need the following addit
 
 runSimpleNN
 
->&lt;mode&gt;
+> >&lt;mode&gt;
 
->&lt;list_of_layers&gt;
+> >&lt;list_of_layers&gt;
 
->&lt;list_of_activations&gt;
+> >&lt;list_of_activations&gt;
 
->&lt;learning_rate&gt;
+> >&lt;learning_rate&gt;
 
->&lt;num_epochs&gt;
+> >&lt;num_epochs&gt;
 
->&lt;training_csv[,testing_csv]&gt;
+> >&lt;training_csv[,testing_csv]&gt;
 
->&lt;model_filename&gt;
+> >&lt;model_filename&gt;
 
->&lt;[map_of_columns_in_csv]&gt;
+> >&lt;[map_of_columns_in_csv]&gt;
 
 
 
