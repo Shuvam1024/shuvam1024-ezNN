@@ -29,7 +29,7 @@ To build the driver commandline tool (runSimpleNN), you need the following addit
 # Usage of runSimpleNN command-line tool
 
 Usage
->runSimpleNN\
+>runSimpleNN
   ><mode>\
   ><list_of_layers>\
   ><list_of_activations>\
