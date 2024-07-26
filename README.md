@@ -41,27 +41,27 @@ Usage:
 > &lt;[map_of_columns_in_csv]&gt;  
 
 
-&lt;mode&gt; is one of four strings: "MODE_REGRESSION_L2", "MODE_REGRESSION_L1", "MODE_BINARY_CLASSIFICATION", "MODE_MULTICAT_CLASSIFICATION", representing the type of network to be trained.
+> &lt;mode&gt; is one of four strings: "MODE_REGRESSION_L2", "MODE_REGRESSION_L1", "MODE_BINARY_CLASSIFICATION", "MODE_MULTICAT_CLASSIFICATION", representing the type of network to be trained.
 
 &lt;list_of_layers&gt; is a comma-separated list of integers representing the number of nodes in each layer starting from the input layer to the output layer. For example if the list has four numbers the first represents the number of nodes in the input layer, the last represents the number of nodes in the output layer, and the two in the middle present the number of nodes in two hidden layers.  
 If the given mode is "MODE_MULTICAT_CLASSIFICATION", the number of output nodes should be the same as the number of categories. However, the training and testing set is expected to have only a single output column corresponding to the index of the given category. If the  given mode is "MODE_BINARY_CLASSIFICATION", the number of output nodes is the number of independant binary classifiers the network is supposed to be trained for. For regression, the number of ouput nodes represents the dimensions of the output vector.  
 
-&lt;list_of_activations&gt; is a list of actTypes which should be one less than the <list_of_layers> as the input layer will not have any activation.  
+> &lt;list_of_activations&gt; is a list of actTypes which should be one less than the <list_of_layers> as the input layer will not have any activation.  
 The actTypes are, ACT_IDENTITY, ACT_RELU, ACT_TANH,ACT_SIGMOID,ACT_SOFTMAX. Note  
   - If the given mode is "MODE_MULTICAT_CLASSIFICATION", the last activation function should be ACT_SOFTMAX
   - If the given mode is "MODE_MULTICAT_CLASSIFICATION", the last activation function should be ACT_SIGMOID
 
-&lt;learning_rate&gt; is the learning rate for training
+> &lt;learning_rate&gt; is the learning rate for training
 
 &lt;num_epochs&gt; is the number epochs for training
 
-&lt;training_csv[,testing_csv]&gt; is a list of the training csv file and the testing csv file seperated by a comma. 
+> &lt;training_csv[,testing_csv]&gt; is a list of the training csv file and the testing csv file seperated by a comma. 
   - Note that the testing csv file is optional if just training.
 
-&lt;model_filename&gt; is the name of the file in which to save the trained model; 
+> &lt;model_filename&gt; is the name of the file in which to save the trained model; 
   - If a testing csv file is provided, it will load the model back from this file to run inference on the testing set.
 
-&lt;[map_of_columns_in_csv]&gt; is an optional parameters which provides a comma-separated ordered list of collumn indices in the csv files representing the input features followed by output features in order.
+> &lt;[map_of_columns_in_csv]&gt; is an optional parameters which provides a comma-separated ordered list of collumn indices in the csv files representing the input features followed by output features in order.
   - Note that if the given mode is "MODE_MULTICAT_CLASSIFICATION", the number of output features is always 1, where as in other cases it is the same as the number of noes in the output layer.
   - If this is not provided, it assumes the csv files has input features followed by output features as their only colllumns.
 
