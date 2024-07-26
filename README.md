@@ -98,42 +98,42 @@ Multicategory Classification command line
 
 # The core simpleNN library API
 
-/// @brief Initializes the simpleNN structure with mode, number of layers, a list of sizes for each layer and a list of activations. Note if there are n layers, there needs to be n sizes and n-1 activations provided.
-/// @param nn Pointer to simpleNN structure to be initialized
-/// @param nlayers Number of layers in the neural network
-/// @param sizes List of sizes for each layer starting from the input layer and up to the output layer
-/// @param acts List of activation types for each layer other than the input layer
-void init_simpleNN(simpleNNType *nn, modeType mode, int nlayers, int *sizes, actType *acts);
+/// @brief Initializes the simpleNN structure with mode, number of layers, a list of sizes for each layer and a list of activations. Note if there are n layers, there needs to be n sizes and n-1 activations provided.  
+/// @param nn Pointer to simpleNN structure to be initialized  
+/// @param nlayers Number of layers in the neural network   
+/// @param sizes List of sizes for each layer starting from the input layer and up to the output layer     
+/// @param acts List of activation types for each layer other than the input layer        
+void init_simpleNN(simpleNNType *nn, modeType mode, int nlayers, int *sizes, actType *acts);      
 
-/// @brief Free the simpleNN structure
-/// @param nn Pointer to simpleNN structure to be freed
-void free_simpleNN(simpleNNType *nn);
+/// @brief Free the simpleNN structure    
+/// @param nn Pointer to simpleNN structure to be freed    
+void free_simpleNN(simpleNNType *nn);   
 
-/// @brief Run inference on a list of inputs
-/// @param nn Pointer to simpleNN structure
+/// @brief Run inference on a list of inputs   
+/// @param nn Pointer to simpleNN structure   
 /// @param inputs list of input samples as a 2D array
-/// @param n number of input samples
-/// @param outputs list of outputs generated for each sample as a 2D array. Space must be pre-allocated for the outputs.
-void do_inference(simpleNNType *nn, float **inputs, int n, float **outputs);
+/// @param n number of input samples   
+/// @param outputs list of outputs generated for each sample as a 2D array. Space must be pre-allocated for the outputs.   
+void do_inference(simpleNNType *nn, float **inputs, int n, float **outputs);    
 
-/// @brief Train a sample
-/// @param nn Pointer to simpleNN structure
-/// @param train_data training data
-/// @param train_sample number of traning samples
-/// @param learning_rate learning rate for training
-/// @param max_epochs number of epochs
-/// @param reset whether to reset to random model in the beginning
-void do_training(simpleNNType *nn, float **train_data, int train_sample, float learning_rate, int max_epochs, int reset);
+/// @brief Train a sample   
+/// @param nn Pointer to simpleNN structure   
+/// @param train_data training data   
+/// @param train_sample number of traning samples   
+/// @param learning_rate learning rate for training    
+/// @param max_epochs number of epochs    
+/// @param reset whether to reset to random model in the beginning   
+void do_training(simpleNNType *nn, float **train_data, int train_sample, float learning_rate, int max_epochs, int reset);   
 
-/// @brief 
-/// @param nn Pointer to simpleNN structure
-/// @param model_filename filename to save model to
-void save_model_to_file(simpleNNType *nn, char * model_filename);
+/// @brief    
+/// @param nn Pointer to simpleNN structure   
+/// @param model_filename filename to save model to    
+void save_model_to_file(simpleNNType *nn, char * model_filename);   
 
-/// @brief 
-/// @param nn Pointer to simpleNN structure
-/// @param model_filename filename to load model from
-void load_model_from_file(simpleNNType *nn, char * model_filename);
+/// @brief     
+/// @param nn Pointer to simpleNN structure   
+/// @param model_filename filename to load model from   
+void load_model_from_file(simpleNNType *nn, char * model_filename);   
 
 
 
