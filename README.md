@@ -19,14 +19,14 @@ simpleNN is contained in a few source files. To use simpleNN, simply add the fol
 - `simpleNN.c`
 - `simpleNN.h`
 
-To build the driver commandline tool (runSimpleNN), you need the following additional files:
+To build the driver commandline tool `runSimpleNN`, you need the following additional files:
 - `readwrite_csv.c`
 - `readwrite_csv.h`
 - `main.c` (driver code for command line tool)
 - To compile runSimpleNN:
   -   gcc -g -o  runSimpleNN simpleNN.c readwrite_csv.c main.c
   
-# Usage of runSimpleNN command-line tool
+# Usage of `runSimpleNN` command-line tool
 
 Usage:
 
