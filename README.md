@@ -102,7 +102,7 @@ These are the core public functions in the simpleNN library API
 
 - `void init_simpleNN(simpleNNType *nn, modeType mode, int nlayers, int *sizes, actType *acts);` 
 > >Initializes the simpleNN structure with mode, number of layers, a list of sizes for each layer and a list of activations. Note if there are n layers, there needs to be n sizes and n-1 activations provided.
-> >Parameters:\
+> >Parameters:
 > - `nn`: Pointer to simpleNN structure to be initialized
 > - `mode`: type of network i.e. classification/regression mode
 > - `nlayers`: Number of layers in the neural network   
@@ -110,21 +110,21 @@ These are the core public functions in the simpleNN library API
 > - `acts`: Array with list of activation types for each layer other than the input layer. Note number of activation types is one less than the number of layers.        
      
 - `void free_simpleNN(simpleNNType *nn);`
->Frees the simpleNN structure
->Parameters:
+> >Frees the simpleNN structure
+> >Parameters:
 > - `nn`: Pointer to simpleNN structure to be freed
   
 - `void do_inference(simpleNNType *nn, float **inputs, int n, float **outputs);`
->Runs inference on a list of inputs
->Parameters:
+> >Runs inference on a list of inputs
+> >Parameters:
 > - `nn`: Pointer to simpleNN structure to be used for inference
 > - `inputs`: 2D array where each row contains the list of input features corresponding to a sample to run inference on.
 > - `n`: Number of input sample vectors i.e. number of rows in the `inputs` 2D array
 > - `outputs`: 2D array where each row contains the list of outputs generated for each sample. Space must be pre-allocated for the outputs. Note that in multicategory classification mode, the number of outputs is 1. In other cases, the number of outputs for each sample is the same as the number of nodes in the output layer of the network.
    
 - `void do_training(simpleNNType *nn, float **train_data, int train_sample, float learning_rate, int max_epochs, int reset);`
->Trains a network based on a training set
->Parameters:
+> >Trains a network based on a training set
+> >Parameters:
 > - `nn`: Pointer to simpleNN structure to be used for inference
 > - `train_data`: 2D array where each row is a training sample comprising the input features for a training sample followed by its expected output vector. Note the number of input features is the same as the number of nodes in the first (input) layer of the network. The number of outputs for each sample is 1 in multicategory classification mode, and is the same as the number of nodes in the output layer of the network in all other modes.
 > - `train_sample`: Number of trainig samples
@@ -133,14 +133,14 @@ These are the core public functions in the simpleNN library API
 > - `reset`: Flag to indicate whether to reset and randomly initialize the parameters of the netowrk prior to training. Set to 1 for new training starting from random initialization. When set as 0, this function can be used to continue or fine-tune training on a given training set, starting from an already pre-trained network.
    
 - `void save_model_to_file(simpleNNType *nn, char * model_filename);`
->Saves trained model architecture and parameters to a file
->Parameters:
+> >Saves trained model architecture and parameters to a file
+> >Parameters:
 > - `nn`: Pointer to simpleNN structure to be used to export model from
 > - `model_filename`: Filename for model file to save   
   
 - `void load_model_from_file(simpleNNType *nn, char * model_filename);`
->Loads pre-trained model architecture and parameters from a file
->Parameters:
+> >Loads pre-trained model architecture and parameters from a file
+> >Parameters:
 > - `nn`: Pointer to simpleNN structure to be used to import model into
 > - `model_filename`: Filename for model file to load
 
