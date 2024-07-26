@@ -32,7 +32,7 @@ To build the driver commandline tool (runSimpleNN), you need the following addit
 
 >runSimpleNN
 
->&lt;`<mode>`&gt;
+>&lt;mode&gt;
 
 >list_of_layers
 
