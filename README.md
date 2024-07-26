@@ -30,14 +30,14 @@ To build the driver commandline tool (runSimpleNN), you need the following addit
 
 Usage\
   runSimpleNN\
-      <mode>\
-      <list_of_layers>\
-      <list_of_activations>\
-      <learning_rates>\
-      <num_epochs>\
-      <training_csv>[,<testing_csv>]\
-      <model_filename>\
-      [<map_of_columns_in_csv>]\
+    <mode>\
+    <list_of_layers>\
+    <list_of_activations>\
+    <learning_rates>\
+    <num_epochs>\
+    <training_csv>[,<testing_csv>]\
+    <model_filename>\
+    [<map_of_columns_in_csv>]\
 
 
   ./runSimpleNN MODE_REGRESSION_L2 6,5,3,1 ACT_RELU,ACT_RELU,ACT_IDENTITY 0.000001 20000 ./Realestate_train.csv,./Realestate_test.csv
