@@ -38,7 +38,7 @@ Usage:
 > &lt;num_epochs&gt;  
 > &lt;training_csv[,testing_csv]&gt;  
 > &lt;model_filename&gt;  
-> &lt;[map_of_columns_in_csv]&gt;  
+> [&lt;map_of_columns_in_csv&gt];  
 
 
 > &lt;mode&gt; is one of four strings: "MODE_REGRESSION_L2", "MODE_REGRESSION_L1", "MODE_BINARY_CLASSIFICATION", "MODE_MULTICAT_CLASSIFICATION", representing the type of network to be trained.
@@ -60,7 +60,7 @@ Usage:
 > &lt;model_filename&gt; is the name of the file in which to save the trained model; 
 >  - If a testing csv file is provided, it will load the model back from this file to run inference on the testing set.
 
-> &lt;[map_of_columns_in_csv]&gt; is an optional parameters which provides a comma-separated ordered list of collumn indices in the csv files representing the input features followed by output features in order.
+> [&lt;map_of_columns_in_csv&gt;] is an optional parameters which provides a comma-separated ordered list of collumn indices in the csv files representing the input features followed by output features in order.
 >  - Note that if the given mode is "MODE_MULTICAT_CLASSIFICATION", the number of output features is always 1, where as in other cases it is the same as the number of noes in the output layer.
 >  - If this is not provided, it assumes the csv files has input features followed by output features as their only colllumns.
 
