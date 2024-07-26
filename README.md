@@ -110,7 +110,7 @@ These are the core public functions in the simpleNN library API
 > - `acts`: Array with list of activation types for each layer other than the input layer. Note number of activation types is one less than the number of layers.        
      
 - `void free_simpleNN(simpleNNType *nn);`
-> >Frees the simpleNN structure
+> >Frees the simpleNN structure  
 > >Parameters:
 > - `nn`: Pointer to simpleNN structure to be freed
   
