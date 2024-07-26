@@ -64,7 +64,7 @@ Usage:
 >  - Note that if the given mode is "MODE_MULTICAT_CLASSIFICATION", the number of output features is always 1, whereas in other cases it is the same as the number of nodes in the output layer.
 >  - If the map is not provided, it is assumed that the csv files have input features followed by output features in order as their only columns.
 
-# Example command lines
+# Example `runSimpleNN` command lines
 
 Regression L2 command line
 
@@ -77,7 +77,6 @@ Binary Classification command line
 Multicategory Classification command line
 
 > runSimpleNN  MODE_MULTICAT_CLASSIFICATION  4,5,3,1  ACT_RELU,ACT_TANH,ACT_SOFTMAX  0.0005  10000  ./iris.csv  mymodel.dat  
-
 
 
 # The core simpleNN library API
