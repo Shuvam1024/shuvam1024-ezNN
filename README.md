@@ -118,18 +118,19 @@ These are the core public functions in the simpleNN library API
 >Runs inference on a list of inputs
 >Parameters:
 > - `nn`: Pointer to simpleNN structure to be used for inference
-> - `inputs`: 2D array where each row contains the list of input features for a sample to run inference on.
+> - `inputs`: 2D array where each row contains the list of input features corresponding to a sample to run inference on.
 > - `n`: Number of input sample vectors i.e. number of rows in the `inputs` 2D array
-> - `outputs`: 2D array where each row contains the list of outputs generated for each sample. Space must be pre-allocated for the outputs. Note that in multicategory classification mode, the number of outputs is 1. In other cases, the number of outputs for each sample is the same as the number of nodes in the output layer.
-
-/// @brief Train a sample   
-/// @param nn Pointer to simpleNN structure   
-/// @param train_data training data   
-/// @param train_sample number of traning samples   
-/// @param learning_rate learning rate for training    
-/// @param max_epochs number of epochs    
-/// @param reset whether to reset to random model in the beginning   
-- `void do_training(simpleNNType *nn, float **train_data, int train_sample, float learning_rate, int max_epochs, int reset);`   
+> - `outputs`: 2D array where each row contains the list of outputs generated for each sample. Space must be pre-allocated for the outputs. Note that in multicategory classification mode, the number of outputs is 1. In other cases, the number of outputs for each sample is the same as the number of nodes in the output layer of the network.
+   
+- `void do_training(simpleNNType *nn, float **train_data, int train_sample, float learning_rate, int max_epochs, int reset);`
+>Trains a network based on a training set
+>Parameters:
+> - `nn`: Pointer to simpleNN structure to be used for inference
+> - `train_data`: 2D array where each row is a training sample comprising the input features for a training sample followed by its expected output vector. Note the number of input features is the same as the number of nodes in the first (input) layer of the network. The number of outputs for each sample is 1 in multicategory classification mode, and is the same as the number of nodes in the output layer of the network in all other modes.
+> - `train_sample`: Number of trainig samples
+> - `learning_rate`:
+> - `max_epochs`:
+> - `reset`:
 
 /// @brief    
 /// @param nn Pointer to simpleNN structure   
