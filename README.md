@@ -38,7 +38,7 @@ Usage:
 > &lt;num_epochs&gt;  
 > &lt;training_csv[,testing_csv]&gt;  
 > &lt;model_filename&gt;  
-> [&lt;map_of_columns_in_csv&gt];  
+> [&lt;map_of_columns_in_csv&gt;]  
 
 
 > &lt;mode&gt; is one of four strings: "MODE_REGRESSION_L2", "MODE_REGRESSION_L1", "MODE_BINARY_CLASSIFICATION", "MODE_MULTICAT_CLASSIFICATION", representing the type of network to be trained.
