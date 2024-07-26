@@ -1,5 +1,5 @@
 # simpleNN
-simpleNN is a library that implements a multilayer perceptron, allowing users to train models with several modes and loss functions. It provides functions for initializing the network, performing forward and backward passes, and evaluating the performance of the trained model. 
+simpleNN is a library that implements a multilayer perceptron (MLP), allowing users to train models with several modes and loss functions. It provides functions for initializing the MLP with given hyperparameters, training from a training set, and running inference on a testing set. 
 
 Additionally, this repository includes a command line tool which allows users to train and test a multilayer perceptron model through csv files.
 
