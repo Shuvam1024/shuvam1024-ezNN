@@ -46,9 +46,8 @@ Usage:
 &lt;list_of_layers&gt; is a comma-separated list of integers representing the number of nodes in each layer starting from the input layer to the output layer. For example if the list has four numbers the first represents the number of nodes in the input layer, the last represents the number of nodes in the output layer, and the two in the middle present the number of nodes in two hidden layers.  
 If the given mode is "MODE_MULTICAT_CLASSIFICATION", the number of output nodes should be the same as the number of categories. However, the training and testing set is expected to have only a single output column corresponding to the index of the given category. If the  given mode is "MODE_BINARY_CLASSIFICATION", the number of output nodes is the number of independant binary classifiers the network is supposed to be trained for. For regression, the number of ouput nodes represents the dimensions of the output vector.  
 
-&lt;list_of_activations&gt; is a list of actTypes which should be one number shorter than the <list_of_layers> as the input features layer will not have any activation.
-
-  The actTypes are, ACT_IDENTITY, ACT_RELU, ACT_TANH,ACT_SIGMOID,ACT_SOFTMAX 
+&lt;list_of_activations&gt; is a list of actTypes which should be one less than the <list_of_layers> as the input layer will not have any activation.  
+The actTypes are, ACT_IDENTITY, ACT_RELU, ACT_TANH,ACT_SIGMOID,ACT_SOFTMAX 
   - If the given mode is "MODE_MULTICAT_CLASSIFICATION", the last activation function should be ACT_SOFTMAX
   - If the given mode is "MODE_MULTICAT_CLASSIFICATION", the last activation function should be ACT_SIGMOID
 
