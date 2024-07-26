@@ -128,9 +128,9 @@ These are the core public functions in the simpleNN library API
 > - `nn`: Pointer to simpleNN structure to be used for inference
 > - `train_data`: 2D array where each row is a training sample comprising the input features for a training sample followed by its expected output vector. Note the number of input features is the same as the number of nodes in the first (input) layer of the network. The number of outputs for each sample is 1 in multicategory classification mode, and is the same as the number of nodes in the output layer of the network in all other modes.
 > - `train_sample`: Number of trainig samples
-> - `learning_rate`:
-> - `max_epochs`:
-> - `reset`:
+> - `learning_rate`: Learning rate for training
+> - `max_epochs`: Number of epochs to run training on
+> - `reset`: Flag to indicate whether to reset and randomly initialize the parameters of the netowrk prior to training. Set to 1 for new training starting from random initialization. When set as 0, this function can be used to continue or fine-tune training on a given training set, starting from an already pre-trained network.
 
 /// @brief    
 /// @param nn Pointer to simpleNN structure   
