@@ -42,14 +42,17 @@ Usage
 `mode` is one of four strings: "MODE_REGRESSION_L2", "MODE_REGRESSION_L1", "MODE_BINARY_CLASSIFICATION", "MODE_MULTICAT_CLASSIFICATION", representing the type of network to be trained.
 
 `list_of_layers` is a comma-separated list of integers representing the number of nodes in each layer starting from the input layer to the output layer. For example if the list has 4 numbers the first represents the number of nodes ij the input layer, the last represents the number of nodes in the output layer, and the 2 in the middle present the number of nodes in the 2 hidden layers. If the given mode is "MODE_MULTICAT_CLASSIFICATION", the number of output nodes should be the same as the number of categories. However, the training and testing set should only have 1 output column corresponding to the index of the category.
-If the given mode is "MODE_BINARY_CLASSIFICATION", the number of output nodes represents the number of independant binary classifiers the network is supposed to be trained for.
-For regression, the number of ouput nodes represents the dimensions of the output vector.
+
+  If the given mode is "MODE_BINARY_CLASSIFICATION", the number of output nodes represents the number of independant binary classifiers the network is supposed to be trained for.
+  For regression, the number of ouput nodes represents the dimensions of the output vector.
 
   Note that the training and testing set in multicategory classification is expected to only have 1 output column corresponding to the index of the category.
 
 `list_of_activations` is a list of actTypes which should be one number shorter than the <list_of_layers> as the input features layer will not have any activation.
   The actTypes are, ACT_IDENTITY, ACT_RELU, ACT_TANH,ACT_SIGMOID,ACT_SOFTMAX
+  
   If the given mode is "MODE_MULTICAT_CLASSIFICATION", the last activation function should be ACT_SOFTMAX
+  
   If the given mode is "MODE_MULTICAT_CLASSIFICATION", the last activation function should be ACT_SIGMOID
 
 `learning_rate` is the learning rate for training
