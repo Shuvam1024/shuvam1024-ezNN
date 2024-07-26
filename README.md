@@ -100,11 +100,11 @@ Multicategory Classification command line
 
 These are the core public functions in the simpleNN library API
 
-/// @brief Initializes the simpleNN structure with mode, number of layers, a list of sizes for each layer and a list of activations. Note if there are n layers, there needs to be n sizes and n-1 activations provided.  
-/// @param nn Pointer to simpleNN structure to be initialized  
-/// @param nlayers Number of layers in the neural network   
-/// @param sizes List of sizes for each layer starting from the input layer and up to the output layer     
-/// @param acts List of activation types for each layer other than the input layer        
+Initializes the simpleNN structure with mode, number of layers, a list of sizes for each layer and a list of activations. Note if there are n layers, there needs to be n sizes and n-1 activations provided.  
+/// @param `nn`: Pointer to simpleNN structure to be initialized  
+/// @param `nlayers`: Number of layers in the neural network   
+/// @param `sizes`: Array with sizes for each layer starting from the input layer and up to the output layer. Note number of sizes is one less than the number of layers.      
+/// @param `acts`: Array with list of activation types for each layer other than the input layer. Note number of activation types is one less than the number of layers.        
 `void init_simpleNN(simpleNNType *nn, modeType mode, int nlayers, int *sizes, actType *acts);`      
 
 /// @brief Free the simpleNN structure    
