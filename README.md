@@ -50,7 +50,7 @@ runSimpleNN
 
 
 
-`mode` is one of four strings: "MODE_REGRESSION_L2", "MODE_REGRESSION_L1", "MODE_BINARY_CLASSIFICATION", "MODE_MULTICAT_CLASSIFICATION", representing the type of network to be trained.
+&lt;`mode`&gt; is one of four strings: "MODE_REGRESSION_L2", "MODE_REGRESSION_L1", "MODE_BINARY_CLASSIFICATION", "MODE_MULTICAT_CLASSIFICATION", representing the type of network to be trained.
 
 `list_of_layers` is a comma-separated list of integers representing the number of nodes in each layer starting from the input layer to the output layer. For example if the list has 4 numbers the first represents the number of nodes ij the input layer, the last represents the number of nodes in the output layer, and the 2 in the middle present the number of nodes in the 2 hidden layers. 
 
