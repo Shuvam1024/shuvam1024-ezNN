@@ -28,7 +28,7 @@ To build the driver commandline tool (runSimpleNN), you need the following addit
   
 # Usage of runSimpleNN command-line tool
 
-Usage
+Usage:
 
 `runSimpleNN`  
 > &lt;mode&gt;  
