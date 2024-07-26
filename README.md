@@ -80,7 +80,7 @@ runSimpleNN
   - Note that if the given mode is "MODE_MULTICAT_CLASSIFICATION", the number of output features is always 1, where as in other cases it is the same as the number of noes in the output layer.
   - If this is not provided, it assumes the csv files has input features followed by output features as their only colllumns.
 
-#Examples
+# Examples
 
 Regression L2
 
