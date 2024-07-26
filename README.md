@@ -30,7 +30,7 @@ To build the driver commandline tool (runSimpleNN), you need the following addit
 
 Usage
 >runSimpleNN
-  ><mode>\
+  ><modeType>\
   ><list_of_layers>\
   ><list_of_activations>\
   ><learning_rates>\
@@ -39,7 +39,7 @@ Usage
   ><model_filename>\
   >[<map_of_columns_in_csv>]
 
-<mode> is one of four strings: "MODE_REGRESSION_L2", "MODE_REGRESSION_L1", "MODE_BINARY_CLASSIFICATION", "MODE_MULTICAT_CLASSIFICATION", representing the type of network to be trained.
+<modeType> is one of four strings: "MODE_REGRESSION_L2", "MODE_REGRESSION_L1", "MODE_BINARY_CLASSIFICATION", "MODE_MULTICAT_CLASSIFICATION", representing the type of network to be trained.
 
 <list_of_layers> is a comma-separated list of integers representing the number of nodes in each layer starting from the input layer to the output layer. For example if the list has 4 numbers the first represents the number of nodes ij the input layer, the last represents the number of nodes in the output layer, and the 2 in the middle present the number of nodes in the 2 hidden layers. If the given mode is "MODE_MULTICAT_CLASSIFICATION", the number of output nodes should be the same as the number of categories. However, the training and testing set should only have 1 output column corresponding to the index of the category.
 If the given mode is "MODE_BINARY_CLASSIFICATION", the number of output nodes represents the number of independant binary classifiers the network is supposed to be trained for.
