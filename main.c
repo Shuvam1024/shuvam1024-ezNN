@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "simpleNN.h"
+#include "ezNN.h"
 #include "readwrite_csv.h"
 
 int str_to_int_array(char *str, int *arr) {
@@ -47,7 +47,7 @@ void usage_and_exit(char *prog, char *message) {
 
 int main(int argc, char* argv[]) {
 
-    simpleNNType myNN;
+    ezNNType myNN;
     int num_samples, cols;
 
     if (argc < 8) {
@@ -92,7 +92,7 @@ int main(int argc, char* argv[]) {
             usage_and_exit(argv[0], "Wrong map size");
     }
 
-    init_simpleNN(&myNN, mode, nlayers, layer_sizes, layer_activations);
+    init_ezNN(&myNN, mode, nlayers, layer_sizes, layer_activations);
 
     float **train_csv_data = (float **)malloc(num_samples * sizeof(float *));
     for (int i = 0; i < num_samples; ++i) {
@@ -128,7 +128,7 @@ int main(int argc, char* argv[]) {
 
     printf("Saved model to file: %s \n", model_filename);
 
-    free_simpleNN(&myNN);
+    free_ezNN(&myNN);
 
     if (testing_csv) {
         printf("-------------------\n");
@@ -173,7 +173,7 @@ int main(int argc, char* argv[]) {
             free(outputs[i]);
         }
         free(outputs);
-        free_simpleNN(&myNN);
+        free_ezNN(&myNN);
     }
     
     free(csv_map);
