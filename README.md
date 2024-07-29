@@ -1,5 +1,5 @@
-# simpleNN
-simpleNN is a library that implements a multilayer perceptron (MLP), allowing users to train models for various regression and classification tasks. It provides functions for creating an MLP with given hyperparameters and objective, training the parameters of the MLP using a training set, and running inference on the trained model a testing set. It also includes functions for saving a trained model into a file and loading it back for subsequent inference or further fine-tuning.
+# ezNN
+ezNN is a library that implements a multilayer perceptron (MLP), allowing users to train models for various regression and classification tasks. It provides functions for creating an MLP with given hyperparameters and objective, training the parameters of the MLP using a training set, and running inference on the trained model a testing set. It also includes functions for saving a trained model into a file and loading it back for subsequent inference or further fine-tuning.
 
 Additionally, this repository includes a command line tool which allows users to train and test a multilayer perceptron model from csv files using the sinpleNN library.
 
@@ -15,22 +15,22 @@ Additionally, this repository includes a command line tool which allows users to
 
 # Building
 
-simpleNN is contained in a few source files. To use simpleNN, simply add the following files to your project:
-- `simpleNN.c`
-- `simpleNN.h`
+ezNN is contained in a few source files. To use ezNN, simply add the following files to your project:
+- `ezNN.c`
+- `ezNN.h`
 
-To build the driver commandline tool `runSimpleNN`, you need the following additional files:
+To build the driver commandline tool `runEzNN`, you need the following additional files:
 - `readwrite_csv.c`
 - `readwrite_csv.h`
 - `main.c` (driver code for command line tool)
-- To compile runSimpleNN:
-  -   gcc -o  runSimpleNN simpleNN.c readwrite_csv.c main.c -lm
+- To compile runEzNN:
+  -   gcc -o  runEzNN ezNN.c readwrite_csv.c main.c -lm
   
-# Usage of `runSimpleNN` command-line tool
+# Usage of `runEzNN` command-line tool
 
 Usage:
 
-`runSimpleNN`  
+`runEzNN`  
 > &lt;mode&gt;  
 > &lt;list_of_layers&gt;  
 > &lt;list_of_activations&gt;  
@@ -64,73 +64,73 @@ Usage:
 >  - Note that if the given mode is "MODE_MULTICAT_CLASSIFICATION", the number of output features is always 1, whereas in other cases it is the same as the number of nodes in the output layer.
 >  - If the map is not provided, it is assumed that the csv files have input features followed by output features in order as their only columns.
 
-# Example `runSimpleNN` command lines
+# Example `runezNN` command lines
 
 Regression L2 command line
 
-> runSimpleNN  MODE_REGRESSION_L2  6,5,3,1  ACT_RELU,ACT_RELU,ACT_IDENTITY  0.000001  20000  train.csv,test.csv  mymodel.dat
+> runezNN  MODE_REGRESSION_L2  6,5,3,1  ACT_RELU,ACT_RELU,ACT_IDENTITY  0.000001  20000  train.csv,test.csv  mymodel.dat
 
 Binary Classification command line
 
-> runSimpleNN  MODE_BINARY_CLASSIFICATION  4,5,3,1  ACT_RELU,ACT_TANH,ACT_SIGMOID  0.0005  10000  train.csv,test.csv  mymodel.dat
+> runezNN  MODE_BINARY_CLASSIFICATION  4,5,3,1  ACT_RELU,ACT_TANH,ACT_SIGMOID  0.0005  10000  train.csv,test.csv  mymodel.dat
 
 Multicategory Classification command line
 
-> runSimpleNN  MODE_MULTICAT_CLASSIFICATION  4,5,3,1  ACT_RELU,ACT_TANH,ACT_SOFTMAX  0.0005  10000  ./iris.csv  mymodel.dat  
+> runezNN  MODE_MULTICAT_CLASSIFICATION  4,5,3,1  ACT_RELU,ACT_TANH,ACT_SOFTMAX  0.0005  10000  ./iris.csv  mymodel.dat  
 
 
-# The core simpleNN library API
+# The core ezNN library API
 
-These are the core public functions in the simpleNN library API
+These are the core public functions in the ezNN library API
 
-- `void init_simpleNN(simpleNNType *nn, modeType mode, int nlayers, int *sizes, actType *acts);` 
-> >Initializes the simpleNN structure with mode, number of layers, a list of sizes for each layer and a list of activations. Note if there are n layers, there needs to be n sizes and n-1 activations provided.
+- `void init_ezNN(ezNNType *nn, modeType mode, int nlayers, int *sizes, actType *acts);` 
+> >Initializes the ezNN structure with mode, number of layers, a list of sizes for each layer and a list of activations. Note if there are n layers, there needs to be n sizes and n-1 activations provided.
 > >
 > >Parameters:
-> - `nn`: Pointer to simpleNN structure to be initialized
+> - `nn`: Pointer to ezNN structure to be initialized
 > - `mode`: type of network i.e. classification/regression mode
 > - `nlayers`: Number of layers in the neural network   
 > - `sizes`: Array with sizes for each layer starting from the input layer and up to the output layer. Note number of sizes is one less than the number of layers.      
 > - `acts`: Array with list of activation types for each layer other than the input layer. Note number of activation types is one less than the number of layers.        
      
-- `void free_simpleNN(simpleNNType *nn);`
-> >Frees the simpleNN structure
+- `void free_ezNN(ezNNType *nn);`
+> >Frees the ezNN structure
 > >  
 > >Parameters:
-> - `nn`: Pointer to simpleNN structure to be freed
+> - `nn`: Pointer to ezNN structure to be freed
   
-- `void do_inference(simpleNNType *nn, float **inputs, int n, float **outputs);`
+- `void do_inference(ezNNType *nn, float **inputs, int n, float **outputs);`
 > >Runs inference on a list of inputs
 > >
 > >Parameters:
-> - `nn`: Pointer to simpleNN structure to be used for inference
+> - `nn`: Pointer to ezNN structure to be used for inference
 > - `inputs`: 2D array where each row contains the list of input features corresponding to a sample to run inference on.
 > - `n`: Number of input sample vectors i.e. number of rows in the `inputs` 2D array
 > - `outputs`: 2D array where each row contains the list of outputs generated for each sample. Space must be pre-allocated for the outputs. Note that in multicategory classification mode, the number of outputs is 1. In other cases, the number of outputs for each sample is the same as the number of nodes in the output layer of the network.
    
-- `void do_training(simpleNNType *nn, float **train_data, int train_sample, float learning_rate, int max_epochs, int reset);`
+- `void do_training(ezNNType *nn, float **train_data, int train_sample, float learning_rate, int max_epochs, int reset);`
 > >Trains a network based on a training set
 > >
 > >Parameters:
-> - `nn`: Pointer to simpleNN structure to be used for inference
+> - `nn`: Pointer to ezNN structure to be used for inference
 > - `train_data`: 2D array where each row is a training sample comprising the input features for a training sample followed by its expected output vector. Note the number of input features is the same as the number of nodes in the first (input) layer of the network. The number of outputs for each sample is 1 in multicategory classification mode, and is the same as the number of nodes in the output layer of the network in all other modes.
 > - `train_sample`: Number of trainig samples
 > - `learning_rate`: Learning rate for training
 > - `max_epochs`: Number of epochs to run training on
 > - `reset`: Flag to indicate whether to reset and randomly initialize the parameters of the netowrk prior to training. Set to 1 for new training starting from random initialization. When set as 0, this function can be used to continue or fine-tune training on a given training set, starting from an already pre-trained network.
    
-- `void save_model_to_file(simpleNNType *nn, char * model_filename);`
+- `void save_model_to_file(ezNNType *nn, char * model_filename);`
 > >Saves trained model architecture and parameters to a file
 > >
 > >Parameters:
-> - `nn`: Pointer to simpleNN structure to be used to export model from
+> - `nn`: Pointer to ezNN structure to be used to export model from
 > - `model_filename`: Filename for model file to save   
   
-- `void load_model_from_file(simpleNNType *nn, char * model_filename);`
+- `void load_model_from_file(ezNNType *nn, char * model_filename);`
 > >Loads pre-trained model architecture and parameters from a file
 > >
 > >Parameters:
-> - `nn`: Pointer to simpleNN structure to be used to import model into
+> - `nn`: Pointer to ezNN structure to be used to import model into
 > - `model_filename`: Filename for model file to load
 
 
