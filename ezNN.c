@@ -161,21 +161,21 @@ static void gradient_relu(float *in, float *out, int n, float *error, float *gra
 }
 
 static void gradient_tanh(float *in, float *out, int n, float *error, float *grad) {
-    // Gradient of tanh activation function: 1 - y^2
+    // Gradient of tanh activation function: 1 - y^2 where y is the activation output
     for (int k = 0; k < n; ++k) {
         grad[k] = (1.0 - out[k] * out[k]) * error[k];
     }
 }
 
 static void gradient_sigmoid(float *in, float *out, int n, float *error, float *grad) {
-    // Gradient of sigmoid activation function: y * (1 - y)
+    // Gradient of sigmoid activation function: y * (1 - y) where y is the activation output
     for (int k = 0; k < n; ++k) {
         grad[k] = (1.0 - out[k]) * out[k] * error[k];
     }
 }
 
 static void gradient_softmax(float *in, float *out, int n, float *error, float *grad) {
-    // Gradient of softmax activation function: y_i * (1 - y_i) for i == j, -y_i * y_j for i != j
+    // Gradient of softmax activation function: y_i * (1 - y_i) for i == j, -y_i * y_j for i != j 
     for (int k = 0; k < n; ++k) {
         grad[k] = 0.0;
         for (int j = 0; j < n; ++j) {
@@ -183,46 +183,46 @@ static void gradient_softmax(float *in, float *out, int n, float *error, float *
         }
     }
 }
-#define USE_CLASSIFICATION_SHORTCUT 0
+
 // Calculate partial derivative of the loss function w.r.t. the output activations of each layer.
 // For the last layer, it depends directly on the specific loss function. 
 // For other layers it is calculated by propagation through the next linear layer
-static void calc_error(ezNNType *nn, int layer_number, float *expected_out) {
+static void calc_grad_output_acts(ezNNType *nn, int layer_number, float *expected_out) {
     int layer_size = nn->layer_sizes[layer_number];
     if (layer_number == nn->nlayers-1) {  // last layer
-#if USE_CLASSIFICATION_SHORTCUT
-        for (int i = 0; i < layer_size; i++) {
-            nn->error[layer_number][i] = nn->act_outputs[layer_number][i] - expected_out[i];
-        }
-#else
+
         switch (nn->mode) {
-            case MODE_MULTICAT_CLASSIFICATION:
+            case MODE_MULTICAT_CLASSIFICATION: 
+            // The loss function for multicategory classification is cross-entropy loss: 
+            // Σ(-yᵢ log (aᵢ)) where yᵢ is the one hot encoded version of the expected category, and aᵢ are the softmax outputs from the last layer
                 for (int i = 0; i < layer_size; i++) {
-                    nn->error[layer_number][i] =  -expected_out[i] / nn->act_outputs[layer_number][i];
+                    nn->error[layer_number][i] =  -expected_out[i] / nn->act_outputs[layer_number][i]; //result of deriving cross entropy with respect to last layer softmax outputs 
                 }
                 break;
             case MODE_BINARY_CLASSIFICATION:
+            // The loss function for binary classification is also cross-entropy loss: 
+            // Σ(-yᵢ log (aᵢ)) where yᵢ are the expected binary outputs and yᵢ are sigmoid outputs from the last layer
                 for (int i = 0; i < layer_size; i++) {
-                    nn->error[layer_number][i] = (nn->act_outputs[layer_number][i] - expected_out[i]) / nn->act_outputs[layer_number][i] / (1.0 - nn->act_outputs[layer_number][i]);
+                    nn->error[layer_number][i] = (nn->act_outputs[layer_number][i] - expected_out[i]) / nn->act_outputs[layer_number][i] / (1.0 - nn->act_outputs[layer_number][i]); //result of deriving cross entropy with respect to last layer sigmoid outputs
                 }
-            case MODE_REGRESSION_L2:
+            case MODE_REGRESSION_L2: // Loss function for L2 regression is sum of square error: Σ(yᵢ - aᵢ)²
             default:
                 for (int i = 0; i < layer_size; i++) {
-                    nn->error[layer_number][i] = nn->act_outputs[layer_number][i] - expected_out[i];
+                    nn->error[layer_number][i] = nn->act_outputs[layer_number][i] - expected_out[i]; //result of deriving square error with repect to last layer
                 }
                 break;
-            case MODE_REGRESSION_L1:
+            case MODE_REGRESSION_L1: // Loss function for L1 regression is sum of absolute error: Σ|yᵢ - aᵢ|
                 for (int i = 0; i < layer_size; i++) {
-                    nn->error[layer_number][i] = (nn->act_outputs[layer_number][i] - expected_out[i]) >= 0 ? 1.0 : -1.0;
+                    nn->error[layer_number][i] = (nn->act_outputs[layer_number][i] - expected_out[i]) >= 0 ? 1.0 : -1.0; //result of deriving absolute error with repect to last layer
                 }
                 break;
-        };
-#endif
+        }
+
     } else {  // non-last layers
-        for (int i = 0; i < layer_size; ++i) {
-            nn->error[layer_number][i] = 0.0;
-            for (int k = 0; k < nn->layer_sizes[layer_number + 1]; ++k) {
-                nn->error[layer_number][i] += nn->weights[layer_number][i][k] * nn->grad[layer_number + 1][k];
+        for (int i = 0; i < layer_size; ++i) { 
+            nn->error[layer_number][i] = 0.0; 
+            for (int k = 0; k < nn->layer_sizes[layer_number + 1]; ++k) { 
+                nn->error[layer_number][i] += nn->weights[layer_number][i][k] * nn->grad[layer_number + 1][k]; //For each layer, multiplies the weights with the partial derivatives of the loss function w.r.t to activation inputs of next layer.
             }
         }
 
@@ -230,19 +230,11 @@ static void calc_error(ezNNType *nn, int layer_number, float *expected_out) {
 }
 
 // Calculate partial derivative of the loss function w.r.t. the input activations of each layer, given the partial derivatives w.r.t. the output activtions.
-static void calc_grad(ezNNType *nn, int i) {
+static void calc_grad_input_acts(ezNNType *nn, int i) {
     int layer_size = nn->layer_sizes[i];
     actType activation = nn->activations[i - 1];
-#if USE_CLASSIFICATION_SHORTCUT
-    if (i == nn->nlayers-1 && nn->mode == MODE_MULTICAT_CLASSIFICATION && activation == ACT_SOFTMAX) {
-        activation = ACT_IDENTITY;
-    }
-    
-    if (i == nn->nlayers-1 && nn->mode == MODE_BINARY_CLASSIFICATION && activation == ACT_SIGMOID) {
-        activation = ACT_IDENTITY;
-    }
-#endif
-    switch (activation) {
+
+    switch (activation) { 
         case ACT_IDENTITY:
             gradient_identity(nn->act_inputs[i], nn->act_outputs[i], layer_size, nn->error[i], nn->grad[i]);
             break;
@@ -277,7 +269,7 @@ static void update_params(ezNNType *nn, float learning_rate) {
     for (int i = 0; i < nlayers - 1; i++) {
         for (int j = 0; j < nn->layer_sizes[i]; j++) {
             for (int k = 0; k < nn->layer_sizes[i+1]; k++) {
-                nn->weights[i][j][k] -= nn->weights_grad[i][j][k] * learning_rate;
+                nn->weights[i][j][k] -= nn->weights_grad[i][j][k] * learning_rate; //updates by taking a small step in the negative
             }
 
         }
@@ -331,8 +323,8 @@ void do_regression_hard(ezNNType *nn, float **inputs, int n, float **outputs) {
 
 static void back_propogation(ezNNType *nn, float * data_train, float *expected_out, float learning_rate) {
     for (int i = nn->nlayers - 1; i >= 1; --i) {
-        calc_error(nn, i, expected_out);
-        calc_grad(nn, i);
+        calc_grad_output_acts(nn, i, expected_out);
+        calc_grad_input_acts(nn, i);
         calc_param_grads(nn, i);
     }
     update_params(nn, learning_rate);
@@ -527,16 +519,19 @@ void do_training(ezNNType *nn, float **train_data, int train_samples, float lear
         // initialize random weights and biases
         initialize_random_params(nn);
     }
-    int *indices = (int *)malloc(train_samples * sizeof(int));
-    float **outputs = (float **)malloc(train_samples * sizeof(float *));
+    int *indices = (int *)malloc(train_samples * sizeof(int)); //indices for samples
+    //allocate space for outputs
+    float **outputs = (float **)malloc(train_samples * sizeof(float *)); 
     for (int i = 0; i < train_samples; ++i) {
         outputs[i] = (float *)malloc(nn->layer_sizes[nn->nlayers-1] * sizeof(float));
     }
+    //epoch loop
     for (int epoch = 0; epoch < max_epochs; ++epoch) {
-        random_shuffle(train_samples, indices);
+        random_shuffle(train_samples, indices); //shuffles samples
+        //sample loop
         for (int sample = 0; sample < train_samples; ++sample) {
             float *this_sample = train_data[indices[sample]];
-            if (nn->mode == MODE_MULTICAT_CLASSIFICATION) {
+            if (nn->mode == MODE_MULTICAT_CLASSIFICATION) { // if multicategory classification, it performs one hot encoding on the current sample
                 int cl = (int)this_sample[nn->layer_sizes[0]];
                 one_hot_encode(cl, nn->layer_sizes[nn->nlayers - 1], out);
             } else {
