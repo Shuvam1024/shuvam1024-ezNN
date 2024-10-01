@@ -23,14 +23,14 @@ To build the driver commandline tool `runEzNN`, you need the following additiona
 - `readwrite_csv.c`
 - `readwrite_csv.h`
 - `main.c` (driver code for command line tool)
-- To compile runEzNN:
-  -   gcc -o  runEzNN ezNN.c readwrite_csv.c main.c -lm
+- To compile runezNN:
+  -   gcc -o  runezNN ezNN.c readwrite_csv.c main.c -lm
   
-# Usage of `runEzNN` command-line tool
+# Usage of `runezNN` command-line tool
 
 Usage:
 
-`runEzNN`  
+`runezNN`  
 > &lt;mode&gt;  
 > &lt;list_of_layers&gt;  
 > &lt;list_of_activations&gt;  
