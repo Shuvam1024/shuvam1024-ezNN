@@ -1,0 +1,22 @@
+# numpy cross-check of forward outputs and parameter gradients
+# numpy 2.4.4
+# threshold_grad_max_abs 0.001
+# threshold_forward_max_abs 0.0001
+id-l2 forward_max_abs 1.19209289e-08 grad_max_abs 1.49011611e-08
+relu-pos-l2 forward_max_abs 2.38418578e-08 grad_max_abs 9.53674317e-08
+relu-neg-l2 forward_max_abs 0.00000000e+00 grad_max_abs 0.00000000e+00
+relu-kink-l2 forward_max_abs 0.00000000e+00 grad_max_abs 0.00000000e+00
+tanh-l2 forward_max_abs 1.20052893e-09 grad_max_abs 2.59831223e-09
+sigmoid-l2 forward_max_abs 1.45855356e-08 grad_max_abs 2.29612734e-09
+softmax-l2 forward_max_abs 1.36399156e-08 grad_max_abs 8.56043525e-09
+bce-identity forward_max_abs 1.19209289e-08 grad_max_abs 7.94728590e-08
+bce-sigmoid forward_max_abs 1.58000469e-08 grad_max_abs 1.58000469e-08
+ce-identity forward_max_abs 1.19209290e-08 grad_max_abs 0.00000000e+00
+ce-softmax forward_max_abs 1.72613469e-08 grad_max_abs 1.72613468e-08
+l1-identity forward_max_abs 1.19209290e-08 grad_max_abs 0.00000000e+00
+chain-tanh-sigmoid-l2 forward_max_abs 9.56549340e-09 grad_max_abs 9.93501185e-09
+chain-relu-softmax-ce forward_max_abs 2.30262162e-08 grad_max_abs 9.20452577e-08
+max_forward_abs 2.38418578e-08
+max_grad_abs 9.53674317e-08
+cases 14
+status pass

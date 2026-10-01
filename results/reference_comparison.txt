@@ -1,0 +1,33 @@
+# reference comparison on the committed example splits
+# ezNN uses libc rand via ezNN_seed, online SGD, no weight decay
+# numpy_sgd uses numpy.random.default_rng, the same init scale and online update, a different stream and an unbiased shuffle
+# sklearn uses Adam, alpha 0, full-batch minibatches, random_state as given
+numpy 2.4.4
+sklearn 1.9.1
+seed 1
+iris_layers 4,16,3
+iris_epochs 400
+iris_lr 0.05
+iris_eznn_train_loss 0.04871212
+iris_eznn_train_accuracy 98.33333588
+iris_eznn_test_loss 0.02103265
+iris_eznn_test_accuracy 100.00000000
+iris_numpy_sgd_train_loss 0.01520080
+iris_numpy_sgd_train_accuracy 100.00000000
+iris_numpy_sgd_test_loss 0.00253435
+iris_numpy_sgd_test_accuracy 100.00000000
+iris_sklearn_train_loss 0.01434948
+iris_sklearn_train_accuracy 99.16666667
+iris_sklearn_test_loss 0.00140245
+iris_sklearn_test_accuracy 100.00000000
+iris_sklearn_n_iter 400
+regression_layers 3,16,1
+regression_epochs 400
+regression_lr 0.05
+regression_eznn_train_loss 0.00060739
+regression_eznn_test_loss 0.00136819
+regression_numpy_sgd_train_loss 0.00068895
+regression_numpy_sgd_test_loss 0.00161407
+regression_sklearn_train_loss 0.00145230
+regression_sklearn_test_loss 0.00272765
+regression_sklearn_n_iter 400
