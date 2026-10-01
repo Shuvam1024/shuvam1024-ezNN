@@ -1,0 +1,11 @@
+*.o
+*.a
+*.so
+*.dat
+runezNN
+build/
+build-cmake/
+__pycache__/
+*.pyc
+.cache/
+models/

@@ -1,0 +1,280 @@
+# ezNN benchmark results
+# produced by scripts/collect_results.sh
+# utc: 2026-10-01T21:02:31Z
+# uname: Linux 6.12.94+ x86_64
+# cpu: Intel(R) Xeon(R) Processor
+# nproc: 4
+# OMP_NUM_THREADS: 4
+# gcc: gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+# clang: Ubuntu clang version 18.1.3 (1ubuntu1)
+# iris.data sha256: 6f608b71a7317216319b4d27b4d9bc84e6abd734eda7872b71a458569e2656c0  data/iris.data
+
+## default -O2
+# make CC=gcc
+compiler gcc 13.3.0
+openmp 0
+timing do_training_wall_seconds
+timing_includes init_when_reset
+timing_excludes dataset_pass_used_only_for_printing
+iris_arch 4,16,3
+iris_activations ACT_RELU,ACT_SOFTMAX
+iris_lr 0.05
+iris_epochs 400
+iris_seed 1
+iris_train_rows 120
+iris_test_rows 30
+iris_trials 5
+iris_warmup_seconds 0.01608400
+iris_trial_seconds 0.01561228 0.01518015 0.01583847 0.01496832 0.01505602
+iris_median_seconds 0.01518015
+iris_train_loss 0.04871212
+iris_train_accuracy 98.33333588
+iris_test_loss 0.02103265
+iris_test_accuracy 100.00000000
+regression_arch 3,16,1
+regression_activations ACT_RELU,ACT_IDENTITY
+regression_lr 0.05
+regression_epochs 400
+regression_seed 1
+regression_train_rows 200
+regression_test_rows 50
+regression_trials 5
+regression_warmup_seconds 0.01652796
+regression_trial_seconds 0.01691436 0.01719182 0.01690033 0.01662716 0.01700959
+regression_median_seconds 0.01691436
+regression_train_loss 0.00060739
+regression_test_loss 0.00136819
+micro_arch 768,768,128
+micro_activations ACT_RELU,ACT_IDENTITY
+micro_mode MODE_REGRESSION_L2
+micro_samples 64
+micro_epochs 8
+micro_lr 0.001
+micro_seed 1
+micro_trials 3
+micro_note synthetic_inputs_timing_only
+micro_warmup_seconds 0.44200507
+micro_trial_seconds 0.44562623 0.44792263 0.45386369
+micro_median_seconds 0.44792263
+micro_loss_finite 1
+
+## cli default -O2
+Starting Training with data/iris_train.csv
+train loss: 0.048712, accuracy: 98.333336
+Saved model to file: build/iris.model
+-------------------
+Loaded model from file: build/iris.model
+Testing with data/iris_test.csv
+test loss: 0.021033, accuracy: 100.000000
+cli_iris_test_accuracy 100.000000
+Starting Training with data/regression_train.csv
+train loss: 0.000607
+Saved model to file: build/regression.model
+-------------------
+Loaded model from file: build/regression.model
+Testing with data/regression_test.csv
+test loss: 0.001368
+cli_regression_test_loss 0.001368
+
+## no-vectorize -O2 -fno-tree-vectorize
+# make CC=gcc NOVEC=1
+compiler gcc 13.3.0
+openmp 0
+timing do_training_wall_seconds
+timing_includes init_when_reset
+timing_excludes dataset_pass_used_only_for_printing
+iris_arch 4,16,3
+iris_activations ACT_RELU,ACT_SOFTMAX
+iris_lr 0.05
+iris_epochs 400
+iris_seed 1
+iris_train_rows 120
+iris_test_rows 30
+iris_trials 5
+iris_warmup_seconds 0.01858946
+iris_trial_seconds 0.01890701 0.01938266 0.01812629 0.01853247 0.01912210
+iris_median_seconds 0.01890701
+iris_train_loss 0.04871212
+iris_train_accuracy 98.33333588
+iris_test_loss 0.02103265
+iris_test_accuracy 100.00000000
+regression_arch 3,16,1
+regression_activations ACT_RELU,ACT_IDENTITY
+regression_lr 0.05
+regression_epochs 400
+regression_seed 1
+regression_train_rows 200
+regression_test_rows 50
+regression_trials 5
+regression_warmup_seconds 0.01868991
+regression_trial_seconds 0.02005519 0.01980720 0.01834447 0.01845674 0.01894644
+regression_median_seconds 0.01894644
+regression_train_loss 0.00060739
+regression_test_loss 0.00136819
+micro_arch 768,768,128
+micro_activations ACT_RELU,ACT_IDENTITY
+micro_mode MODE_REGRESSION_L2
+micro_samples 64
+micro_epochs 8
+micro_lr 0.001
+micro_seed 1
+micro_trials 3
+micro_note synthetic_inputs_timing_only
+micro_warmup_seconds 0.53591416
+micro_trial_seconds 0.52626972 0.52487286 0.52390271
+micro_median_seconds 0.52487286
+micro_loss_finite 1
+
+## openmp -O2 -fopenmp
+# make CC=gcc OPENMP=1
+compiler gcc 13.3.0
+openmp 1
+openmp_max_threads 4
+timing do_training_wall_seconds
+timing_includes init_when_reset
+timing_excludes dataset_pass_used_only_for_printing
+iris_arch 4,16,3
+iris_activations ACT_RELU,ACT_SOFTMAX
+iris_lr 0.05
+iris_epochs 400
+iris_seed 1
+iris_train_rows 120
+iris_test_rows 30
+iris_trials 5
+iris_warmup_seconds 0.02054711
+iris_trial_seconds 0.01758561 0.01748095 0.01765166 0.01738553 0.01820941
+iris_median_seconds 0.01758561
+iris_train_loss 0.04871212
+iris_train_accuracy 98.33333588
+iris_test_loss 0.02103265
+iris_test_accuracy 100.00000000
+regression_arch 3,16,1
+regression_activations ACT_RELU,ACT_IDENTITY
+regression_lr 0.05
+regression_epochs 400
+regression_seed 1
+regression_train_rows 200
+regression_test_rows 50
+regression_trials 5
+regression_warmup_seconds 0.01831003
+regression_trial_seconds 0.01861652 0.01872641 0.01800235 0.01751288 0.01829756
+regression_median_seconds 0.01829756
+regression_train_loss 0.00060739
+regression_test_loss 0.00136819
+micro_arch 768,768,128
+micro_activations ACT_RELU,ACT_IDENTITY
+micro_mode MODE_REGRESSION_L2
+micro_samples 64
+micro_epochs 8
+micro_lr 0.001
+micro_seed 1
+micro_trials 3
+micro_note synthetic_inputs_timing_only
+micro_warmup_seconds 0.31859772
+micro_trial_seconds 0.30643876 0.28846149 0.29323351
+micro_median_seconds 0.29323351
+micro_loss_finite 1
+
+## unit tests gcc -O2
+mkdir -p build
+gcc -I. -std=c99 -Wall -Wextra -Werror -O2  -o build/test_eznn tests/test_eznn.c readwrite_csv.c ezNN.c  -lm
+./build/test_eznn
+223 checks passed, 0 failed
+
+## unit tests gcc asan+ubsan
+mkdir -p build
+gcc -I. -std=c99 -Wall -Wextra -Werror -O1 -g -fno-omit-frame-pointer -fsanitize=address,undefined -fno-sanitize-recover=undefined -o build/test_eznn tests/test_eznn.c readwrite_csv.c ezNN.c -fsanitize=address,undefined -lm
+./build/test_eznn
+223 checks passed, 0 failed
+
+## unit tests gcc openmp
+mkdir -p build
+gcc -I. -std=c99 -Wall -Wextra -Werror -O2 -fopenmp -DEZNN_OPENMP -o build/test_eznn tests/test_eznn.c readwrite_csv.c ezNN.c -fopenmp -lm
+./build/test_eznn
+224 checks passed, 0 failed
+
+## unit tests clang -O2
+mkdir -p build
+clang -I. -std=c99 -Wall -Wextra -Werror -O2  -o build/test_eznn tests/test_eznn.c readwrite_csv.c ezNN.c  -lm
+./build/test_eznn
+223 checks passed, 0 failed
+
+## unit tests clang asan+ubsan
+mkdir -p build
+clang -I. -std=c99 -Wall -Wextra -Werror -O1 -g -fno-omit-frame-pointer -fsanitize=address,undefined -fno-sanitize-recover=undefined -o build/test_eznn tests/test_eznn.c readwrite_csv.c ezNN.c -fsanitize=address,undefined -lm
+./build/test_eznn
+223 checks passed, 0 failed
+
+## derived ratios
+# micro_openmp_speedup_vs_default = default_median / openmp_median
+# micro_vectorize_speedup_vs_novec = novec_median / default_median
+micro_median_default 0.44792263
+micro_median_novec 0.52487286
+micro_median_openmp 0.29323351
+micro_openmp_speedup_vs_default 1.52752879
+micro_vectorize_speedup_vs_novec 1.17179358
+iris_test_accuracy_default 100.00000000
+regression_test_loss_default 0.00136819
+iris_test_accuracy_novec 100.00000000
+regression_test_loss_novec 0.00136819
+iris_test_accuracy_openmp 100.00000000
+regression_test_loss_openmp 0.00136819
+
+## numpy crosscheck summary
+# numpy cross-check of forward outputs and parameter gradients
+# numpy 2.4.4
+# threshold_grad_max_abs 0.001
+# threshold_forward_max_abs 0.0001
+id-l2 forward_max_abs 1.19209289e-08 grad_max_abs 1.49011611e-08
+relu-pos-l2 forward_max_abs 2.38418578e-08 grad_max_abs 9.53674317e-08
+relu-neg-l2 forward_max_abs 0.00000000e+00 grad_max_abs 0.00000000e+00
+relu-kink-l2 forward_max_abs 0.00000000e+00 grad_max_abs 0.00000000e+00
+tanh-l2 forward_max_abs 1.20052893e-09 grad_max_abs 2.59831223e-09
+sigmoid-l2 forward_max_abs 1.45855356e-08 grad_max_abs 2.29612734e-09
+softmax-l2 forward_max_abs 1.36399156e-08 grad_max_abs 8.56043525e-09
+bce-identity forward_max_abs 1.19209289e-08 grad_max_abs 7.94728590e-08
+bce-sigmoid forward_max_abs 1.58000469e-08 grad_max_abs 1.58000469e-08
+ce-identity forward_max_abs 1.19209290e-08 grad_max_abs 0.00000000e+00
+ce-softmax forward_max_abs 1.72613469e-08 grad_max_abs 1.72613468e-08
+l1-identity forward_max_abs 1.19209290e-08 grad_max_abs 0.00000000e+00
+chain-tanh-sigmoid-l2 forward_max_abs 9.56549340e-09 grad_max_abs 9.93501185e-09
+chain-relu-softmax-ce forward_max_abs 2.30262162e-08 grad_max_abs 9.20452577e-08
+max_forward_abs 2.38418578e-08
+max_grad_abs 9.53674317e-08
+cases 14
+status pass
+
+## reference comparison summary
+# reference comparison on the committed example splits
+# ezNN uses libc rand via ezNN_seed, online SGD, no weight decay
+# numpy_sgd uses numpy.random.default_rng, the same init scale and online update, a different stream and an unbiased shuffle
+# sklearn uses Adam, alpha 0, full-batch minibatches, random_state as given
+numpy 2.4.4
+sklearn 1.9.1
+seed 1
+iris_layers 4,16,3
+iris_epochs 400
+iris_lr 0.05
+iris_eznn_train_loss 0.04871212
+iris_eznn_train_accuracy 98.33333588
+iris_eznn_test_loss 0.02103265
+iris_eznn_test_accuracy 100.00000000
+iris_numpy_sgd_train_loss 0.01520080
+iris_numpy_sgd_train_accuracy 100.00000000
+iris_numpy_sgd_test_loss 0.00253435
+iris_numpy_sgd_test_accuracy 100.00000000
+iris_sklearn_train_loss 0.01434948
+iris_sklearn_train_accuracy 99.16666667
+iris_sklearn_test_loss 0.00140245
+iris_sklearn_test_accuracy 100.00000000
+iris_sklearn_n_iter 400
+regression_layers 3,16,1
+regression_epochs 400
+regression_lr 0.05
+regression_eznn_train_loss 0.00060739
+regression_eznn_test_loss 0.00136819
+regression_numpy_sgd_train_loss 0.00068895
+regression_numpy_sgd_test_loss 0.00161407
+regression_sklearn_train_loss 0.00145230
+regression_sklearn_test_loss 0.00272765
+regression_sklearn_n_iter 400

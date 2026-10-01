@@ -1,0 +1,39 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        cc: [gcc, clang]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install compilers
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential clang libomp-dev
+          if [ "${{ matrix.cc }}" = "clang" ]; then
+            ver=$(clang -dumpversion | cut -d. -f1)
+            sudo apt-get install -y "libclang-rt-${ver}-dev"
+          fi
+
+      - name: Unit tests -O2
+        run: make clean && make test CC=${{ matrix.cc }}
+
+      - name: Unit tests ASan+UBSan
+        run: make clean && make test CC=${{ matrix.cc }} SANITIZE=1
+
+      - name: Unit tests OpenMP
+        run: make clean && make test CC=${{ matrix.cc }} OPENMP=1
+
+      - name: Regenerated data matches the commit
+        run: make clean && make data CC=${{ matrix.cc }} && git diff --exit-code -- data
+
+      - name: CLI examples
+        run: make runezNN CC=${{ matrix.cc }} && sh scripts/run_examples.sh

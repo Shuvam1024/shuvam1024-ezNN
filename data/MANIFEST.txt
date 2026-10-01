@@ -1,0 +1,12 @@
+iris_records 150
+iris_train 120
+iris_test 30
+iris_split per_class_first_40_train_last_10_test
+iris_normalization zscore_population_over_train
+iris_train_mean 5.8900000000000015 3.0600000000000014 3.7958333333333347 1.1908333333333334
+iris_train_std 0.84235780204534594 0.43996211958152343 1.7853755829578895 0.7542099435096894
+regression_train 200
+regression_test 50
+regression_seed 1
+regression_x_range [-1,1]
+regression_formula y=0.5*x0-0.8*x0^3+0.4*x1^2-0.7*x2
